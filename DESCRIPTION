@@ -1,13 +1,30 @@
 Package: simpleR
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Summarize, Manage data and conduct Multiple Regression with zero R experience
+Date: 2021-12-15
+Version: 0.0.1
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    c(person("Arifa", "Abbas", , "afakhruddin@wesleyan.edu", role = c("aut")),
+    person("Neve", "Oren", , "noren@wesleyan.edu", role = c("aut", "cre")),
+    person("Lars", "Delin", ,"ldelin@wesleyan.edu", role = c("aut")))
+Description: This package is a interactive experience where a person with zero R experience is able to import a dataset,
+    view the dataframe and variables, detect missing data, get summary statistics, remove/keep variables, rename variables, 
+    change class of a variable, recode variable values and conduct an in-depth multiple regression with easy to understand 
+    summaries. This is done all in the console as the user selects different options in an interactive way. 
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Imports:
+    dplyr,
+    crayon,
+    ggeffects,
+    effects,
+    ggplot2,
+    patchwork,
+    dominanceanalysis,
+    stats
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr
