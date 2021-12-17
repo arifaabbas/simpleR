@@ -1,5 +1,5 @@
 ---
-title: "Using simpleR"
+title: "Using simpleR!"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Using simpleR}
