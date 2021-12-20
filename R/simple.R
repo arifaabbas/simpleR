@@ -6,9 +6,6 @@
 #'change class of a variable, recode variable values and conduct an in-depth multiple regression with easy to understand
 #'summaries.
 #'
-#'
-#'@return
-#'
 #'@details
 #'This package contains one function simple that should be ran in the console to trigger and interactive experience where
 #'the user will be prompted to import their dataset and then guided to conduct many data cleaning and analyzing tasks.
@@ -16,15 +13,13 @@
 #'@export
 #'
 #'@import dplyr
-#'@import ggeffects
-#'@import ggplot2
+#'@importFrom ggplot2 ggplot labs coord_flip theme
 #'@import effects
 #'@import patchwork
 #'@import dominanceanalysis
-#'@import stats
+#'@import ggeffects
 #'@import crayon
-
-
+#'@importFrom stats summary.lm as.formula
 
 
 simple <- function(){
@@ -33,13 +28,14 @@ simple <- function(){
   e.simple$dfname <- NULL
   e.simple$variables <- NULL
   e.simple$name <- NULL
-  cat(crayon::bold$underline("\nWelcome to simpleR!"), "
+  cat((bold$underline("\nWelcome to simpleR!")), "
 
-This is an easy way to get your dataframe set up for analysis.",
-      crayon::bold$red("\n\nNOTE:"), "
-> If you would like to ", crayon::underline("go back to previous options"), ", type ", crayon::bold$green("!!!"), "
-> If you would like to ", crayon::underline("go back to the main menu of options"), ", type ", crayon::bold$green("!!!main"), "
-> If at any point you would like to ", crayon::bold$red("exit"), " the program, press the ", crayon::bold$green("esc key"), "
+This is an easy way to view, summarize and subset your dataset; rename, recode and change class of variables and
+conduct a multiple regression with no coding needed.",
+      (bold$red("\n\nNOTE:")), "
+> If you would like to ", (underline("go back to previous options")), ", type ", (bold$green("!!!")), "
+> If you would like to ", (underline("go back to the main menu of options")), ", type ", (bold$green("!!!main")), "
+> If at any point you would like to ", (bold$red("exit")), " the program, press the ", (bold$green("esc key")), "
 
 Let's begin!", sep = "")
 
@@ -73,14 +69,14 @@ Let's begin!", sep = "")
         break}
       else{
         if(is.null(df) | is.null(dfname)){
-          cat(crayon::red$bold("\nError: "), crayon::red("You did not select one of the options."),
-              "\n> If you would like to go back, enter ", crayon::green$bold("!!!"), sep = "")
+          cat((red$bold("\nError: ")), (red("You did not select one of the options.")),
+              "\n> If you would like to go back, enter ", (green$bold("!!!")), sep = "")
           option <- readline("Please enter the number associated with the option: ")
         }
         else{
-          cat(crayon::red$bold("\nError: "), crayon::red("You did not select one of the options."),
-              "\n> If you would like to go back, enter ", crayon::green$bold("!!!"),
-              "\n> If you would like to go back to the main menu, enter ", crayon::green$bold("!!!"), sep = "")
+          cat((red$bold("\nError: ")), (red("You did not select one of the options.")),
+              "\n> If you would like to go back, enter ", (green$bold("!!!")),
+              "\n> If you would like to go back to the main menu, enter ", (green$bold("!!!")), sep = "")
           option <- readline("Please enter the number associated with the option: ")
         }
       }
@@ -100,8 +96,8 @@ Let's begin!", sep = "")
     error <- unlist(error)
     "TRUE" %in% error}
   naming <- function(nametype, backto, df = e.simple$df, dfname = e.simple$dfname){
-    e.simple$name <- NULL
     repeat{
+      e.simple$name <- NULL
       cat("\nWhen naming a ", nametype , ", here are some things to be aware of.
 The name should:
   - Be one word (no spaces)
@@ -150,28 +146,28 @@ Bad examples:
       }
       if(nametype == "dataframe"){
         name <- readline("Enter what you would like to name the dataframe: ")}
-      if(nametype == "variable"){
+      else if(nametype == "variable"){
         name <- readline("Enter what you would like to name the variable: ")}
       go <- back(name, backto)
       if(!(is.null(go))){break}
       if(length(name) == 0){
-        cat(crayon::red$bold("\nError: "), crayon::red("You did not enter in a name."), sep = "")
+        cat((red$bold("\nError: ")), (red("You did not enter in a name.")), sep = "")
       }
       else if(!(substr(name, 1, 1) %in% letters | substr(name, 1, 1) %in% LETTERS | substr(name, 1, 1) == ".")){
-        cat(crayon::red$bold("\nError: "), crayon::red("The name you chose does not begin with a letter or a period (.)."), sep = "")}
+        cat((red$bold("\nError: ")), (red("The name you chose does not begin with a letter or a period (.).")), sep = "")}
       else if(illegal(name) == TRUE){
-        cat(crayon::red$bold("\nError: "), crayon::red("The name you chose contains illegal characters or spaces."), sep = "")
+        cat((red$bold("\nError: ")), (red("The name you chose contains illegal characters or spaces.")), sep = "")
         cat("\nIllegal characters are symbols/punctuation other than a period (.), dash (-), or underscore (_)")}
       # check if existing name
       else{
         if(nametype == "dataframe"){
           if(exists(name, envir = .GlobalEnv, inherits = FALSE)){
-            cat(crayon::red$bold("\nWarning: "), crayon::red("The name you chose is one that is already being used by something in your global environment."),
+            cat((red$bold("\nWarning: ")), (red("The name you chose is one that is already being used by something in your global environment.")),
                 "\n\nYou may want to provide a different name.
-If you use choose to use this name, it will ", crayon::red$bold("replace"), " the other element, even if it is not a dataframe.
+If you use choose to use this name, it will ", (red$bold("replace")), " the other element, even if it is not a dataframe.
 
 Do you want to:
-  1. Use this name (", crayon::red$bold("replace"), " the other)
+  1. Use this name (", (red$bold("replace")), " the other)
   2. Choose a different name", sep = "")
             option <- readline("Type the number associated: ")
             result <- options(option, c("1", "2"), backto)
@@ -184,10 +180,10 @@ Do you want to:
           else{e.simple$name <- name
           break}
         }
-        if(nametype == "variable"){
+        else if(nametype == "variable"){
           if(name %in% names(df)){
-            cat(crayon::red$bold("\nWarning: "), crayon::red("The name you chose is one that is already the name of a variable in the dataframe '"),
-                crayon::underline$red(dfname), crayon::red("'"),
+            cat((red$bold("\nWarning: ")), (red("The name you chose is one that is already the name of a variable in the dataframe '")),
+                (underline$red(dfname)), (red("'")),
                 ".\n\nYou will have to choose a different name.")}
           else{e.simple$name <- name
           break}}
@@ -202,27 +198,27 @@ Do you want to:
     if(solo == 1){
       repeat{
         cat("\nThe variables in your dataframe are:\n  - ", paste(names(df), sep = "", collapse = "\n  - "),
-            "\n\nWhich variable would you like to ", crayon::bold(dothis), "?", sep = "")
+            "\n\nWhich variable would you like to ", (bold(dothis)), "?", sep = "")
         variables <- readline("Enter in the variable: ")
         go <- back(variables, backto)
         if(!(is.null(go))){break}
         if(variables == ""){
-          cat(crayon::red$bold("\nError: "), crayon::red("You did not enter in a variable."), sep = "")}
+          cat((red$bold("\nError: ")), (red("You did not enter in a variable.")), sep = "")}
         else{
           variablessplit <- strsplit(variables, " ")
           variablessplit <- variablessplit[[1]]
           if(length(variablessplit) > 1){
-            cat(crayon::red$bold("\nError: "), crayon::red("You entered in more than 1 variable."), sep = "")}
+            cat((red$bold("\nError: ")), (red("You entered in more than 1 variable.")), sep = "")}
           else if(!(variables %in% names(df))){
-            cat(crayon::red$bold("\nError: "), crayon::red("You entered an invalid variable."),
+            cat((red$bold("\nError: ")), (red("You entered an invalid variable.")),
                 "\nThe variable you entered is not one of the variable names in your dataframe.", sep = "")
           }
 
           # confirm
           else{
-            cat("\nThe variable you selected is: ", crayon::green$bold(variables),
-                "\n\nAre you sure you would like to ", crayon::bold(dothis), " the variable in the dataframe '",
-                crayon::underline(dfname), "'?
+            cat("\nThe variable you selected is: ", (green$bold(variables)),
+                "\n\nAre you sure you would like to ", (bold(dothis)), " the variable in the dataframe '",
+                (underline(dfname)), "'?
   1. Yes
   2. No", sep = "")
             option <- readline("Type the number associated: ")
@@ -245,7 +241,7 @@ examples:
   - var1
   - var1 var2 var5
 
-Which variable(s) would you like to ", crayon::bold(dothis), "?", sep = "")
+Which variable(s) would you like to ", (bold(dothis)), "?", sep = "")
         variables <- readline("Enter in the variable(s): ")
         go <- back(variables, backto)
         if(!(is.null(go))){break}
@@ -256,9 +252,9 @@ Which variable(s) would you like to ", crayon::bold(dothis), "?", sep = "")
 
         # check variable name
         if(variables == ""){
-          cat(crayon::red$bold("\nError: "), crayon::red("You did not enter in any variable(s)."), sep = "")}
+          cat((red$bold("\nError: ")), (red("You did not enter in any variable(s).")), sep = "")}
         else if(FALSE %in% valid){
-          cat(crayon::red$bold("\nError: "), crayon::red("You entered an invalid variable or list of variables."),
+          cat((red$bold("\nError: ")), (red("You entered an invalid variable or list of variables.")),
               "\nThis means you either inputted your variable(s) in wrong,
 or one or more of the variables you entered is not one of the variable names in your dataframe.", sep = "")
         }
@@ -266,8 +262,8 @@ or one or more of the variables you entered is not one of the variable names in 
         # confirm
         else{
           cat("\nThe variable(s) you selected are:\n  - ", paste(variablessplit, collapse = "\n  - "),
-              "\n\nAre you sure you would like to ", crayon::bold(dothis), " the variable(s) in the dataframe '",
-              crayon::underline(dfname), "'?
+              "\n\nAre you sure you would like to ", (bold(dothis)), " the variable(s) in the dataframe '",
+              (underline(dfname)), "'?
   1. Yes
   2. No", sep = "")
           option <- readline("Type the number associated: ")
@@ -286,38 +282,38 @@ or one or more of the variables you entered is not one of the variable names in 
 
   # Main: -----------
   main <- function(){
-    cat(crayon::bold("\nWelcome to the "), crayon::bold$underline("Main Menu"),
+    cat((bold("\nWelcome to the ")), (bold$underline("Main Menu")),
         "\nHere, you will see the different 'main' options you have for this program
 
-If at any point you would like to come back to the main menu, just type ", crayon::green$bold("!!!main"),
+If at any point you would like to come back to the main menu, just type ", (green$bold("!!!main")),
         "\n\nHere is the menu of overaching options:
   1. Choose a Dataframe
   2. Understand your Dataframe
   3. Manage/Change the Contents of your Dataframe
-  4. Analyse you Dataframe
+  4. Analyze your Dataframe
 
 If you would like to learn more about an option, type HELP", sep = "")
 
     option <- readline("Type the number associated or HELP: ")
     while(!(option %in% 1:4 | option == "HELP")){
-      cat(crayon::bold$red("\nError: "), crayon::red("You did not select one of the options or HELP."), sep = "")
+      cat((bold$red("\nError: ")), (red("You did not select one of the options or HELP.")), sep = "")
       option <- readline("Type the number associated or HELP: ")
     }
     main_options(option)
   }
   main_options <- function(option){
     if(option == "HELP"){
-      cat(crayon::bold("\n\nTable Of Contents"), crayon::green$underline("\n\nChoose a Dataframe"),
-"
+      cat((bold("\n\nTable Of Contents")), (green$underline("\n\nChoose a Dataframe")),
+          "
   1. Import new dataframe
   2. Choose a dataframe already loaded in your global environment",
-          crayon::green$underline("\n\nUnderstand your Dataframe"),
+          (green$underline("\n\nUnderstand your Dataframe")),
           "
   1. View dataframe
   2. View variables
   3. Summary satistics
   4. Detect missing data",
-          crayon::green$underline("\n\nManage/Change the Contents of your Dataframe"),
+          (green$underline("\n\nManage/Change the Contents of your Dataframe")),
           "
   1. Subset your data
         1. Create a copy of your dataframe
@@ -330,7 +326,7 @@ If you would like to learn more about an option, type HELP", sep = "")
              1. Change variable class
              2. Rename variable
              3. Recode variable values",
-          crayon::green$underline("\n\nAnalyse you Dataframe"),
+          (green$underline("\n\nAnalyse you Dataframe")),
           "
   - Conduct a multiple regression
         - Results of the multiple regression
@@ -360,7 +356,7 @@ If you would like to learn more about an option, type HELP", sep = "")
 
   # 1. Dataframe: -----------
   df_select <- function(df = e.simple$df, dfname = e.simple$dfname, name = e.simple$name){
-    cat(crayon::bold("\n\nChoose a Dataframe"), "\n\nDo you want to:
+    cat((bold("\n\nChoose a Dataframe")), "\n\nDo you want to:
   1. Import a dataframe
   2. Use an existing dataframe in your global environment", sep = "")
     option <- readline("Type the number associated: ")
@@ -381,7 +377,7 @@ If you would like to learn more about an option, type HELP", sep = "")
   }
   df_existing <- function(df = e.simple$df, dfname = e.simple$dfname){
     repeat{
-      cat(crayon::bold("\nUse an Existing Dataframe in your Global Environment"))
+      cat((bold("\nUse an Existing Dataframe in your Global Environment")))
       name <- readline("Enter in the name of the dataframe: ")
       go <- back(name, df_select())
       if(!(is.null(go))){break}
@@ -390,19 +386,19 @@ If you would like to learn more about an option, type HELP", sep = "")
         e.simple$df <- get(name, envir = .GlobalEnv)
         break}
       else{
-        cat(crayon::red$bold("\nError: "), crayon::red("The name you entered does not match any dataframe currently in your global environment."),
+        cat((red$bold("\nError: ")), (red("The name you entered does not match any dataframe currently in your global environment.")),
             "\nPlease enter the name of the dataframe you would like to use currently in your global environment.
 > If the dataframe you would like to use is not in your global environment,
-  enter ", crayon::green$bold("!!!"), " to go back to the options for choosing your dataframe and pick option 1: Import a Dataframe.\n", sep = "")
+  enter ", (green$bold("!!!")), " to go back to the options for choosing your dataframe and pick option 1: Import a Dataframe.\n", sep = "")
         if(!(is.null(df) | is.null(dfname))){
-          cat("> If you would like to use the dataframe '", crayon::underline(dfname), "' that is already loaded in the program,
-  enter ", crayon::green$bold("!!!main"), " to go back to the main menu.", sep = "")
+          cat("> If you would like to use the dataframe '", (underline(dfname)), "' that is already loaded in the program,
+  enter ", (green$bold("!!!main")), " to go back to the main menu.", sep = "")
         }
       }
     }
   }
   df_import <- function(df = e.simple$df, dfname = e.simple$dfname, name = e.simple$name){
-    cat(crayon::bold("\nImport a Dataframe"), "\n\nYou will have to give your dataframe a name.", sep = "")
+    cat((bold("\nImport a Dataframe")), "\n\nYou will have to give your dataframe a name.", sep = "")
     naming("dataframe", df_select())
     if(!(is.null(name))){
       e.simple$dfname <- name
@@ -443,8 +439,8 @@ If you would like to learn more about an option, type HELP", sep = "")
   # 2. Summarize: -----------
   simplesummary <- function(df = e.simple$df, dfname = e.simple$dfname){
     repeat{
-      cat(crayon::bold("\n\nUnderstand your Dataframe"),
-      "\n\nWhat information about your dataframe '", crayon::underline(dfname), "' would you like to see?
+      cat((bold("\n\nUnderstand your Dataframe")),
+          "\n\nWhat information about your dataframe '", (underline(dfname)), "' would you like to see?
 
 You have the choice to:
   1. View dataframe
@@ -522,7 +518,7 @@ You have the choice to:
 
   # 3. Manage: -----------
   manage_select <- function(){
-    cat(crayon::bold("\n\nManage/Change the Contents of your Dataframe"), "\n\nDo you want to:
+    cat((bold("\n\nManage/Change the Contents of your Dataframe")), "\n\nDo you want to:
   1. Subset your data
   2. Change existing variables", sep = "")
     option <- readline("Type the number associated: ")
@@ -541,21 +537,21 @@ You have the choice to:
   }
   subset <- function(df = e.simple$df, dfname = e.simple$dfname, name = e.simple$name){
     repeat{
-      cat(crayon::bold("\nSubset your Data"),
+      cat((bold("\nSubset your Data")),
           "\n\nBefore you do any subsetting, would you like this subsetting to occur in your dataframe '",
-          crayon::underline(dfname), "',
-or in a copy of your dataframe '", crayon::underline(dfname), "'?
+          (underline(dfname)), "',
+or in a copy of your dataframe '", (underline(dfname)), "'?
 
 Would you like to:
-  1. Create a copy of your dataframe '", crayon::underline(dfname), "': subset in a copy
-     to  preserve '", crayon::underline(dfname), "'  in your global environment
-  2. Use the dataframe '", crayon::underline(dfname), "': subset in '", crayon::underline(dfname), "'", sep = "")
+  1. Create a copy of your dataframe '", (underline(dfname)), "': subset in a copy
+     to  preserve '", (underline(dfname)), "'  in your global environment
+  2. Use the dataframe '", (underline(dfname)), "': subset in '", (underline(dfname)), "'", sep = "")
       option <- readline("Type the number associated: ")
       result <- options(option, 1:2, manage_select())
       if(!(is.null(result$go))){break}
       option <- result$option
       if(option == 1){
-        cat("\nYou will have to provide a name for your subset of the dataframe '", crayon::underline(dfname), "'", sep = "")
+        cat("\nYou will have to provide a name for your subset of the dataframe '", (underline(dfname)), "'", sep = "")
         naming("dataframe", subset())
         if(!(is.null(name))){
           e.simple$dfname <- name
@@ -571,21 +567,21 @@ Would you like to:
   }
   changevar <- function(df = e.simple$df, dfname = e.simple$dfname, name = e.simple$name){
     repeat{
-      cat(crayon::bold("\nChange Existing Variables"),
+      cat((bold("\nChange Existing Variables")),
           "\n\nBefore you change any variables, would you like this data management to occur in your dataframe '",
-          crayon::underline(dfname), "',
-or in a copy of your dataframe '", crayon::underline(dfname), "'?
+          (underline(dfname)), "',
+or in a copy of your dataframe '", (underline(dfname)), "'?
 
 Would you like to:
-  1. Create a copy of your dataframe '", crayon::underline(dfname), "': subset in a copy
-     to  preserve '", crayon::underline(dfname), "'  in your global environment
-  2. Use the dataframe '", crayon::underline(dfname), "': subset in '", crayon::underline(dfname), "'", sep = "")
+  1. Create a copy of your dataframe '", (underline(dfname)), "': subset in a copy
+     to  preserve '", (underline(dfname)), "'  in your global environment
+  2. Use the dataframe '", (underline(dfname)), "': subset in '", (underline(dfname)), "'", sep = "")
       option <- readline("Type the number associated: ")
       result <- options(option, 1:2, manage_select())
       if(!(is.null(result$go))){break}
       option <- result$option
       if(option == "1"){
-        cat("\nYou will have to provide a name for your copy of the dataframe '", crayon::underline(dfname), "'", sep = "")
+        cat("\nYou will have to provide a name for your copy of the dataframe '", (underline(dfname)), "'", sep = "")
         naming("dataframe", changevar())
         if(!(is.null(name))){
           e.simple$dfname <- name
@@ -604,7 +600,7 @@ Would you like to:
   # Subset:
 
   subset_select <- function(){
-    cat(crayon::bold("\n\nSubsetting Options"),
+    cat((bold("\n\nSubsetting Options")),
         "\n\nDo you want to:
   1. Remove specific variables
   2. Keep specific variables", sep = "")
@@ -617,7 +613,7 @@ Would you like to:
   }
   subset_options <- function(option, df = e.simple$df, dfname = e.simple$dfname, variables = e.simple$variables){
     if(option == "1"){
-      cat(crayon::bold("\nRemove Specific Variables"))
+      cat((bold("\nRemove Specific Variables")))
       varname("remove", subset_select())
       if(!(is.null(variables))){
         remove_vars()
@@ -625,7 +621,7 @@ Would you like to:
       }
     }
     if(option == "2"){
-      cat(crayon::bold("\nKeep Specific Variables"))
+      cat((bold("\nKeep Specific Variables")))
       varname("only keep", subset("2"))
       if(!(is.null(variables))){
         keep_vars()
@@ -655,7 +651,7 @@ Would you like to:
   #_______________________________________________
   # Change Vars:
   changevar_select <- function(){
-    cat(crayon::bold("\nChange Existing Variables"),
+    cat((bold("\nChange Existing Variables")),
         "\n\nDo you want to:
   1. Change variable class
   2. Rename variable
@@ -669,21 +665,21 @@ Would you like to:
   }
   changevar_options <- function(option, df = e.simple$df, dfname = e.simple$dfname, variables = e.simple$variables){
     if(option == "1"){
-      cat(crayon::bold("\nChange Variable Class"))
+      cat((bold("\nChange Variable Class")))
       varname("re-class", changevar_select(), solo = 1)
       if(!(is.null(variables))){
         changevar_class()
         manage_select()}
     }
     if(option == "2"){
-      cat(crayon::bold("\nRename Variable"))
+      cat((bold("\nRename Variable")))
       varname("rename", changevar_select(), solo = 1)
       if(!(is.null(variables))){
         changevar_name()
         manage_select()}
     }
     if(option == "3"){
-      cat(crayon::bold("\nRecode Variable Values"))
+      cat((bold("\nRecode Variable Values")))
       varname("recode", changevar_select(), solo = 1)
       if(!(is.null(variables))){
         changevar_recode()
@@ -764,11 +760,12 @@ Would you like to:
       assign(dfname[1], e.simple$df, envir = .GlobalEnv)
     }
   }
-  changevar_name <- function(variables = e.simple$variables, df = e.simple$df, dfname = e.simple$dfname, name = e.simple$name) {
+  changevar_name <- function(variables = e.simple$variables, df = e.simple$df, dfname = e.simple$dfname) {
     naming("variable", changevar_options(2))
     if(!(is.null(e.simple$name))){
-      e.simple$df <- rename(df, name = variables)
-      assign(dfname[1], df, envir = .GlobalEnv)
+      name <- e.simple$name
+      names(e.simple$df)[names(e.simple$df) == variables] <- name
+      assign(dfname[1], e.simple$df, envir = .GlobalEnv)
     }
   }
   changevar_recode <- function(variables = e.simple$variables, df = e.simple$df, dfname = e.simple$dfname) {
@@ -815,47 +812,47 @@ Would you like to:
     }
     #Introduction to reg ----
     repeat{
-      cat(crayon::underline("Welcome to conducting a multiple regression!\n"),
+      cat((underline("Welcome to conducting a multiple regression!\n")),
           "Would you like a brief overview of what a multiple regression entails?\n",
-          "  1.", crayon::green(" Yes\n"),
-          "  2.", crayon::red(" No"),sep="")
+          "  1.", (green(" Yes\n")),
+          "  2.", (red(" No")),sep="")
       overview <- readline("Please enter the number associated with the option:")
       result <- options(overview, 1:2, main())
       if(!(is.null(result$go))){break}
       overview <- result$option
       if (overview == 1){
-        cat(crayon::underline$green("\nMultiple linear regression"), " also known simply as multiple regression, is a statistical technique
-that uses ", crayon::bold("several explanatory variables"), " (i.e predictor variables or independent variables) to
-predict the outcome of a ", crayon::bold("response variable"), " (i.e predicted variable or dependent variable).
+        cat((underline$green("\nMultiple linear regression")), " also known simply as multiple regression, is a statistical technique
+that uses ", (bold("several explanatory variables")), " (i.e predictor variables or independent variables) to
+predict the outcome of a ", (bold("response variable")), " (i.e predicted variable or dependent variable).
 \nMultiple regression is an extension of simple linear regression as you can input more than one
 explanatory variable that gives you a better and more in-depth analysis.\n",
-            crayon::green("\nIn summary"), ", multiple regression will allow you to see how the explanatory variables are affecting
+            (green("\nIn summary")), ", multiple regression will allow you to see how the explanatory variables are affecting
 the response variables, which is useful in trying to make conclusions regarding certain hypothesis.", sep="")
       }
       cat("\n----------------------------------------------------------------------------------------------------------------",sep="")
-      cat(crayon::bold$red("\nNote:"), " Please ensure all variables that will be used in this regression have",
-          crayon::red$bold(" no missing values"), " and are the \nsuitable type and class for the multiple regression to provide meaningful results.","\n",
-          "\n> If at any point you want to go back to the main menu just type: ", crayon::bold$green("!!!"), sep="")
+      cat((bold$red("\nNote:")), " Please ensure all variables that will be used in this regression have",
+          (red$bold(" no missing values")), " and are the \nsuitable type and class for the multiple regression to provide meaningful results.","\n",
+          "\n> If at any point you want to go back to the main menu just type: ", (bold$green("!!!")), sep="")
       cat("\n----------------------------------------------------------------------------------------------------------------",sep="")
       cat("\nNow you will be asked to input the variable you want to predict (i.e response/dependent variable).", "\n",
-          "Please ensure you enter the ", crayon::bold$red("exact name"), " of this variable.", sep = "")
+          "Please ensure you enter the ", (bold$red("exact name")), " of this variable.", sep = "")
       #Input dependent variable ----
       repeat{
         dv <- readline("Enter dependent variable name here and hit return:")
         go <- back(dv, main())
         if(!(is.null(go))){break}
         if(length(setdiff(dv, names(df))) > 0){
-          cat("\n'", crayon::bold$underline((setdiff(dv, names(df)))),"'", " is an", crayon::bold$red(" invalid")," variable that is not in the dataset"," '", crayon::blue(e.simple$dfname),"'", "\n",
-              "\nPlease input a variable that is in the dataset"," '", crayon::blue(e.simple$dfname),"'", sep = "")
+          cat("\n'", (bold$underline((setdiff(dv, names(df))))),"'", " is an", (bold$red(" invalid"))," variable that is not in the dataset"," '", (blue(e.simple$dfname)),"'", "\n",
+              "\nPlease input a variable that is in the dataset"," '", (blue(e.simple$dfname)),"'", sep = "")
         }
         else{
           input1 <- dv
-          cat("\nThanks! The variable you chose is: ", crayon::bold(input1),"\n", sep="")
+          cat("\nThanks! The variable you chose is: ", (bold(input1)),"\n", sep="")
           break
         }
       }
       if(!(is.null(go))){break}
-      cat("\nNow you will be asked to enter the ", crayon::bold$red("exact name"), " of the explanatory variables (i.e independent/predictor)
+      cat("\nNow you will be asked to enter the ", (bold$red("exact name")), " of the explanatory variables (i.e independent/predictor)
 that will be tested against the response variable.\n", sep="")
       #Input independent variable ----
       repeat{
@@ -865,18 +862,18 @@ that will be tested against the response variable.\n", sep="")
         iv <- strsplit(iv, " ")
         iv <- iv[[1]]
         if (length(setdiff(iv, names(df))) > 0){
-          cat("\nThe following variables are ", crayon::bold$red("invalid "),"as they are not in the dataset"," '", crayon::blue(e.simple$dfname),"':","\n",
-              crayon::bold$underline(setdiff(iv, names(df))),"\n\n",
-              "Please input a variable that is in the dataset"," '", crayon::blue(e.simple$dfname),"'", sep = "")
+          cat("\nThe following variables are ", (bold$red("invalid ")),"as they are not in the dataset"," '", (blue(e.simple$dfname)),"':","\n",
+              (bold$underline(setdiff(iv, names(df)))),"\n\n",
+              "Please input a variable that is in the dataset"," '", (blue(e.simple$dfname)),"'", sep = "")
         }else{
           input2 <- iv
-          cat("\nThanks! The variables you chose are: ", crayon::bold(input2), sep="")
+          cat("\nThanks! The variables you chose are: ", (bold(input2)), sep="")
           break
         }
       }
       #Results ----
       if(!(is.null(go))){break}
-      cat(crayon::bold$underline$green("\nHere are the results for the multiple regression:"))
+      cat((bold$underline$green("\nHere are the results for the multiple regression:")))
       ls <- input1
       rs <- paste(input2, collapse="+")
       f <- paste(ls, "~", rs)
@@ -884,28 +881,28 @@ that will be tested against the response variable.\n", sep="")
       fit <- mreg(formula, df)
       print(summary.lm(fit))
       results <- summary.lm(fit)$coefficients
-      cat(crayon::underline("Do you need help understanding the", crayon::bold("output and significance"), "of the above regression?"),"\n",
-          "  1.", crayon::green(" Yes\n"),
-          "  2.", crayon::red(" No"),sep="")
+      cat((underline$bold("Do you need help understanding the output and significance of the above regression?")),"\n",
+          "  1.", (green(" Yes\n")),
+          "  2.", (red(" No")), sep="")
       select <- readline("Please enter the number associated with the option:")
       result <- options(select, 1:2, main())
       if(!(is.null(result$go))){break}
       select <- result$option
       if (select == 1){
-        cat(crayon::underline("\nHere are the ", crayon::bold$blue("significant results"), " where the p value was less than 0.05:","\n\n", sep = ""))
+        cat((underline("\nHere are the ", (bold$blue("significant results")), " where the p value was less than 0.05:","\n\n", sep = "")))
         for(i in 2:nrow(results)){
           if(results[i, 4] < .05){
-            cat("For a 1 point change in ",  crayon::bold(dimnames(results)[[1]][i]),
-                ", ", crayon::blue(input1), " is expected to change by ", crayon::red(results[i, 1]),".\n", sep = "")
+            cat("For a 1 point change in ",  (bold(dimnames(results)[[1]][i])),
+                ", ", (blue(input1)), " is expected to change by ", (red(results[i, 1])),".\n", sep = "")
           }
         }
       }
       repeat{
-        cat("\n",crayon::underline("Additionally, do you want to do any of the following?"),"\n",
-            " 1.", crayon::blue("Understand the ", crayon::bold("R-squared value and Adjusted R-squared"), " value\n"),
-            " 2.", crayon::green("Get ", crayon::bold("plots of each paired relationship"), " between the dependent and each independent variable\n"),
-            " 3.", crayon::magenta("Get the ", crayon::bold("relative importance"), " of each variable in your model\n"),
-            " 4.", crayon::yellow("Go back to the ", crayon::bold("main menu"), sep=""))
+        cat("\n",(underline("Additionally, do you want to do any of the following?")),"\n",
+            " 1.", (blue("Understand the ", (bold("R-squared value and Adjusted R-squared")), " value\n")),
+            " 2.", (green("Get ", (bold("plots of each paired relationship")), " between the dependent and each independent variable\n")),
+            " 3.", (magenta("Get the ", (bold("relative importance")), " of each variable in your model\n")),
+            " 4.", (yellow("Go back to the ", (bold("main menu")))), sep="")
         input <-  readline("Please enter the number associated with the option:")
         result <- options(input, 1:4, main())
         if(!(is.null(result$go))){break}
@@ -914,11 +911,11 @@ that will be tested against the response variable.\n", sep="")
         if (input == 1){
           r.s <- summary.lm(fit)$r.squared
           ars <- summary.lm(fit)$adj.r.squared
-          cat(crayon::red("\nThe R-squared value for this analysis is "), crayon::bold(r.s),
+          cat((red("\nThe R-squared value for this analysis is ")), (bold(r.s)),
               "\n> The R-squared value explains the degree to which your explanatory variables explains the variation
 of your response variable.\n> So an R-squared value of ", r.s," means that ",(r.s)*100,"%"," of the variation in the response variable
 is explained by the explanatory variables in the analysis.","\n\n", sep ="")
-          cat(crayon::red("The Adjusted-R squared value for this analysis is "), crayon::bold(ars),
+          cat((red("The Adjusted-R squared value for this analysis is ")), (bold(ars)),
               "\nThe Adjusted R-squared increases when new terms improve the model more than would be expected by chance and
 it decreases when a explanatory variable improves the model by less than expected.
 > The Adjusted R-squared helps to determine how much of the significance is just due to addition of
@@ -929,16 +926,16 @@ decrease when a explanatory variable improves the model less than what is predic
         }
         # Mreg Plots ----
         if (input == 2){
-          cat(crayon::bold$blue$underline(("\nOn the right is the plots! >>>>")))
-          cat("\n>These plots", crayon::bold(" show the relationship of response to each explanatory variable seperately"), " so that you can
+          cat((bold$blue$underline(("\nOn the right is the plots! >>>>"))))
+          cat("\n>These plots", (bold(" show the relationship of response to each explanatory variable seperately")), " so that you can
 understand the relationship between each response varibale and explanatory variables better.\n", sep="")
           p <- plot.mreg(fit, points=TRUE)
           print(p)
         }
         # General dominance plots ----
         if (input == 3){
-          cat(crayon::bold$magenta$underline("\nOn the right is your general dominance plot! >>>>"),
-              "\nThis plot shows you the ", crayon::bold("average importance of each explanatory variable"), " relative to all the other
+          cat((bold$magenta$underline("\nOn the right is your general dominance plot! >>>>")),
+              "\nThis plot shows you the ", (bold("average importance of each explanatory variable")), " relative to all the other
 explanatory variables included in the multiple regression.\n", sep="")
           rela_fit <- lm(formula, mtcars)
           da_df <- dominanceAnalysis(rela_fit)

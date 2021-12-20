@@ -2,7 +2,86 @@
 title: "Using simpleR!"
 output: rmarkdown::html_vignette
 vignette: >
+  %\VignetteIndexEnt---
+title: "Using simpleR!"
+output: rmarkdown::html_vignette
+vignette: >
   %\VignetteIndexEntry{Using simpleR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+SimpleR aims to get you through the basics of learning about your dataset, simple data management techniques, as well as executing multiple regression analysis without writing a single line of code. To get started, simply load the package and run the function: “simple()” It is really as easy as that. SimpleR is interactive, so let it walk you through your options and help you decide what to do next.
+
+To get started, first load the package into RStudio by running the following command:
+
+```{r setup}
+if(!require(remotes)){
+  install.packages("remotes")
+}
+remotes::install_github("arifaabbas/simpleR")
+```
+
+Once you have loaded the package, run “simple()” to initiate the interactive environment in the console. Follow the prompt to load a dataset to use for this session. You can always change it later:
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/1.png){width=500px}
+
+Once you load your data, you will be taken to the main menu where you can choose what to do next:
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/2.png){width=550px}
+
+If you select option 2, you will be taken to a set of options related to understanding your data. You can select any of these options and it will provide you with relevant information:
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/3.png){width=500px}
+
+Check out this example when option 4 is selected to view the missing data in each of the variables:
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/7.png){width=700px}
+
+Selecting option 3 from the main menu will allow you to change your dataframe in the global environment. No saving is required; as you make changes, it will apply to your dataset. Don't worry, you will be given the option to copy your data so that you will not risk losing anything:
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/4.png){width=350px}
+
+The changes you make will apply to the data in the global environment. To view the data, press “esc” and click on in the top right corner of the screen. Note that to view the full data, you have to be out of the simple() function. To keep making changes, you will have to re-load it:
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/12.png){width=400px}
+
+Option 1 allows you to do variable level subsetting:
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/5.png){width=350px}
+
+Option 2 walks you through various actions to change something about your variables:
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/6.png){width=225px}
+
+Check out this option to change variable class. The function will do all the work, you simply pick the variables, and the desired class. Remember, these changes apply to the data directly in your global environment:
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/9.png){width=500px}
+
+
+Lastly, the last option from the main menu takes you to an easy step by step walkthrough of linear regression analysis. This section has tons of explanation so if things do not quite make sense, take a second to read through:
+
+
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/10.png){width=700px}
+![](/Users/arifaabbas/Desktop/simpleR/vignettes/11.png){width=700px}
+
+Thank you for using simpleR! If you are ever stuck, just read the prompts carefully. Good luck!
+
+
+
+
+
+
+
+by Neve Oren, Arifa Abbas, and Lars Delin
+ry{Using simpleR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

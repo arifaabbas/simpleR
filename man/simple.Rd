@@ -6,9 +6,6 @@
 \usage{
 simple()
 }
-\value{
-
-}
 \description{
 This function is for users with zero R experience who want to import a dataset,
 view the dataset and variables, detect missing data, get summary statistics, remove/keep variables, rename variables,
