@@ -12,11 +12,9 @@ The goal of simpleR is to provide a user with zero R experience ways to import a
 
 ## **Get started**
 
-### Please **click** the "getting stared" option on the **navigation tab** on the top of the screen to get started with simpleR and learn about the package.
+Please visit [this link](https://arifaabbas.github.io/simpleR/) and hit the getting stared page in the navigation tab on the top of the screen to get detailed instructions about how simpleR works and how to use it!
 
 ------------------------------------------------------------------------
-
-
 
 <center>
 
