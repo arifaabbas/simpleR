@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Using simpleR! • simpleR</title>
+<title>Using simpleR • simpleR</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Using simpleR!">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Using simpleR">
 <meta property="og:description" content="simpleR">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -63,7 +63,7 @@
       </header><script src="simpleR_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Using simpleR!</h1>
+      <h1 data-toc-skip>Using simpleR</h1>
             
       
       
@@ -73,19 +73,110 @@
 
     
     
+<hr>
+<div id="introduction" class="section level2">
+<h2 class="hasAnchor">
+<a href="#introduction" class="anchor"></a><em>Introduction</em>
+</h2>
+<p>SimpleR aims to get you through the basics of learning about your dataset, simple data management techniques, as well as executing multiple regression analysis without writing a single line of code. The intention of simpleR is to make data managment and analysis in R super easy for beginner or new users.</p>
+<div id="in-simpler-you-can-do-the-following-things-with-no-code-needed" class="section level4">
+<h4 class="hasAnchor">
+<a href="#in-simpler-you-can-do-the-following-things-with-no-code-needed" class="anchor"></a>In simpleR you can do the following things with <span style="color: red;">no code needed</span>:</h4>
+<ul>
+<li><p><strong>Import</strong> your data frame to R</p></li>
+<li><p><strong>View</strong> your data frame and the variables in it</p></li>
+<li><p>Get <strong>summary statistics of each variable</strong> in your data frame</p></li>
+<li><p>Change variables <strong>name</strong> and <strong>class</strong></p></li>
+<li><p><strong>Recode</strong> values in your variables</p></li>
+<li><p><strong>Keep/remove</strong> observations or variables</p></li>
+<li><p>Conduct an in-depth <strong>multiple regression</strong> with explanations of what everything means</p></li>
+</ul>
+<center>
+<img src="https://c.tenor.com/-4udOWNT6BYAAAAC/simple-gcbs.gif">
+</center>
+<hr>
+</div>
+</div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a><em>Getting started</em>
+</h2>
+<p>To get started, simply load the package and run the function: <span style="color: red;">simple()</span> . It is really as easy as that. SimpleR is interactive, so let it walk you through your options and help you decide what to do next. If you are every stuck just read the instructions carefully.</p>
+<hr>
+<div id="you-can-get-the-package-simpler-using-r-in-two-ways--" class="section level3">
+<h3 class="hasAnchor">
+<a href="#you-can-get-the-package-simpler-using-r-in-two-ways--" class="anchor"></a>You can get the package simpleR using R in two ways -</h3>
+<div id="first-way--" class="section level4">
+<h4 class="hasAnchor">
+<a href="#first-way--" class="anchor"></a><span style="color: green;">First way</span> -</h4>
+<p>Run the following code in a R script file or in the R console to load the package</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">simpleR</span><span class="op">)</span>
-<span class="co">#&gt; Warning: replacing previous import 'crayon::%+%' by 'ggplot2::%+%' when loading</span>
-<span class="co">#&gt; 'simpleR'</span>
-<span class="co">#&gt; Warning: replacing previous import 'dplyr::filter' by 'stats::filter' when</span>
-<span class="co">#&gt; loading 'simpleR'</span>
-<span class="co">#&gt; Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading</span>
-<span class="co">#&gt; 'simpleR'</span></code></pre></div>
+<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">}</span>
+
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"arifaabbas/simpleR"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="second-way-" class="section level4">
+<h4 class="hasAnchor">
+<a href="#second-way-" class="anchor"></a><span style="color: green;">Second way</span>-</h4>
+<p>Run the following code in a R script file or in the R console to load the package</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"arifaabbas/simpleR"</span><span class="op">)</span></code></pre></div>
+<hr>
+<p>After the package is installed, please run this to load the package on your R session</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(simple R)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div>
+<hr>
+</div>
+</div>
+</div>
+<div id="using-the-package-simpler" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-the-package-simpler" class="anchor"></a>Using the package simpleR</h2>
+<p>After the package is installed and loaded, just run the following code in the R script file or R console -</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/simple.html">simple</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>This will initiate the <span style="color: red;"><strong>interactive environment</strong></span> in the console. Follow the prompt to import a data set to use for this session. It should look like this:</p>
+<p><img src="1.png" width="500"></p>
+<p>Once you import a dataset from the global environment or a new dataset you will be taken to the <span style="color: blue;">main menu</span> where you can choose what to do next:</p>
+<p><img src="2.png" width="550"></p>
+<p>If you select <strong>option 2</strong>, you will be taken to a set of options related to <span style="color: blue;">understanding your data</span>. You can select any of these options and it will provide you with relevant information:</p>
+<p><img src="3.png" width="500"></p>
+<p>Check out this example when <strong>option 4</strong> is selected to view the <span style="color: blue;">missing data</span> in each of the variables:</p>
+<p><img src="7.png" width="700"></p>
+<p>Selecting option 3 from the main menu will allow you to change your dataframe in the global environment. No saving is required; as you make changes, it will apply to your dataset. Don’t worry, you will be given the option to copy your data so that you will not risk losing anything:</p>
+<p><img src="4.png" width="350"></p>
+<p>The changes you make will apply to the data in the global environment. To view the data, press “esc” and click on in the top right corner of the screen. Note that to view the full data, you have to be out of the simple() function. To keep making changes, you will have to re-load it:</p>
+<p><img src="12.png" width="400"></p>
+<p><strong>Option 1</strong> allows you to do variable level subsetting by <strong>removing</strong> or <strong>keeping</strong> variables:</p>
+<p><img src="5.png" width="350"></p>
+<p><strong>Option 2</strong> walks you through various actions to <strong>change</strong> something about your variables:</p>
+<p><img src="6.png" width="225"></p>
+<p>Check out this option to <strong>change variable class</strong>. The function will do all the work, you simply pick the variables, and the desired class. Remember, these changes apply to the data directly in your global environment:</p>
+<p><img src="9.png" width="500"></p>
+<p>Lastly, the last option from the main menu takes you to an easy step by step walkthrough of <span style="color: blue;">multiple linear regression</span>. This section has tons of explanation so if things do not quite make sense, take a second to read through:</p>
+<p><img src="10.png" width="700"><img src="11.png" width="700"></p>
+<p>The regression section also provides general dominance plots and analysis plots.</p>
+<hr>
+</div>
+<div id="thank-you-and-hope-you-enjoy-simpler" class="section level2">
+<h2 class="hasAnchor">
+<a href="#thank-you-and-hope-you-enjoy-simpler" class="anchor"></a>Thank you and hope you enjoy simpleR</h2>
+<p>If you are ever stuck, just read the prompts carefully as it entails all the information you need to guide you through the steps. Good luck!</p>
+<center>
+<img src="https://c.tenor.com/unwzPVl0fBcAAAAd/best-best-of-luck.gif">
+</center>
+<p>by Neve Oren, Arifa Abbas, and Lars Delin ry{Using simpleR} % % —</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
