@@ -1,19 +1,18 @@
 ---
-title: "Using simpleR"
+title: "A guide to using simpleR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using simpleR}
+  %\VignetteIndexEntry{A guide to using simpleR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE, warning = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
-
 
 ------------------------------------------------------------------------
 
@@ -40,6 +39,7 @@ SimpleR aims to get you through the basics of learning about your dataset, simpl
 <center>
 
 ![](https://c.tenor.com/-4udOWNT6BYAAAAC/simple-gcbs.gif)
+
 </center>
 
 ------------------------------------------------------------------------
@@ -95,43 +95,45 @@ simple()
 
 This will initiate the [**interactive environment**]{style="color: red;"} in the console. Follow the prompt to import a data set to use for this session. It should look like this:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/1.png){width="500px"}
+![](1.png){width="500px"}
 
-Once you import a dataset from the global environment or a new dataset you will be taken to the <span style="color: blue;">main menu</span> where you can choose what to do next:
+Once you import a dataset from the global environment or a new dataset you will be taken to the [main menu]{style="color: blue;"} where you can choose what to do next:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/2.png){width="550px"}
+![](2.png){width="550px"} 
 
-If you select **option 2**, you will be taken to a set of options related to <span style="color: blue;">understanding your data</span>. You can select any of these options and it will provide you with relevant information:
+If you select **option 2**, you will be taken to a set of options related to [understanding your data]{style="color: blue;"}. You can select any of these options and it will provide you with relevant information:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/3.png){width="500px"}
+![](3.png){width="500px"}
 
-Check out this example when **option 4** is selected to view the <span style="color: blue;">missing data</span> in each of the variables:
+Check out this example when **option 4** is selected to view the [missing data]{style="color: blue;"} in each of the variables:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/7.png){width="700px"}
+![](7.png){width="700px"}
 
 Selecting option 3 from the main menu will allow you to change your dataframe in the global environment. No saving is required; as you make changes, it will apply to your dataset. Don't worry, you will be given the option to copy your data so that you will not risk losing anything:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/4.png){width="350px"}
+![](4.png){width="350px"}
 
 The changes you make will apply to the data in the global environment. To view the data, press "esc" and click on in the top right corner of the screen. Note that to view the full data, you have to be out of the simple() function. To keep making changes, you will have to re-load it:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/12.png){width="400px"}
+![](12.png){width="400px"}
 
 **Option 1** allows you to do variable level subsetting by **removing** or **keeping** variables:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/5.png){width="350px"}
+![](5.png){width="350px"}
 
 **Option 2** walks you through various actions to **change** something about your variables:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/6.png){width="225px"}
+![](6.png){width="225px"}
 
 Check out this option to **change variable class**. The function will do all the work, you simply pick the variables, and the desired class. Remember, these changes apply to the data directly in your global environment:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/9.png){width="500px"}
+![](9.png){width="500px"}
 
-Lastly, the last option from the main menu takes you to an easy step by step walkthrough of <span style="color: blue;">multiple linear regression</span>. This section has tons of explanation so if things do not quite make sense, take a second to read through:
+Lastly, the last option from the main menu takes you to an easy step by step walkthrough of [multiple linear regression]{style="color: blue;"}. This section has tons of explanation so if things do not quite make sense, take a second to read through:
 
-![](/Users/arifaabbas/Desktop/simpleR/vignettes/10.png){width="700px"} ![](/Users/arifaabbas/Desktop/simpleR/vignettes/11.png){width="700px"}
+![](10.png){width="700px"} 
+
+![](11.png){width="700px"}
 
 The regression section also provides general dominance plots and analysis plots.
 
@@ -144,12 +146,8 @@ If you are ever stuck, just read the prompts carefully as it entails all the inf
 <center>
 
 ![](https://c.tenor.com/unwzPVl0fBcAAAAd/best-best-of-luck.gif)
+
 </center>
-
-
-
-
-
 
 by Neve Oren, Arifa Abbas, and Lars Delin ry{Using simpleR} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8} ---
 
